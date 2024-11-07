@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
   if (req.method === 'POST') {
     try {
       const body = await req.json();
-      const { prompt, tags, title, make_instrumental, model, wait_audio, cookie} = body;
+      const { prompt, tags, title, make_instrumental, model, wait_audio, negative_tags, cookie } = body;
 
       const client = sunoApi(cookie);
 
@@ -17,7 +17,8 @@ export async function POST(req: NextRequest) {
         prompt, tags, title,
         Boolean(make_instrumental),
         model || DEFAULT_MODEL,
-        Boolean(wait_audio)
+        Boolean(wait_audio),
+        negative_tags
       );
       return new NextResponse(JSON.stringify(audioInfo), {
         status: 200,

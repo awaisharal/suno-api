@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
 
     let userMessage = null;
-    const { messages, cookie} = body;
+    const { messages } = body;
     for (let message of messages) {
       if (message.role == 'user') {
         userMessage = message;
@@ -31,9 +31,8 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    const client = sunoApi(cookie);
 
-    const audioInfo = await (await client).generate(userMessage.content, true, DEFAULT_MODEL, true);
+    const audioInfo = await (await sunoApi).generate(userMessage.content, true, DEFAULT_MODEL, true);
 
     const audio = audioInfo[0]
     const data = `## Song Title: ${audio.title}\n![Song Cover](${audio.image_url})\n### Lyrics:\n${audio.lyric}\n### Listen to the song: ${audio.audio_url}`

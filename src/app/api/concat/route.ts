@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
   if (req.method === 'POST') {
     try {
       const body = await req.json();
-      const { clip_id, cookie } = body;
+      const { clip_id } = body;
       if (!clip_id) {
         return new NextResponse(JSON.stringify({ error: 'Clip id is required' }), {
           status: 400,
@@ -18,10 +18,7 @@ export async function POST(req: NextRequest) {
           }
         });
       }
-
-      const client = sunoApi(cookie);
-
-      const audioInfo = await (await client).concatenate(clip_id);
+      const audioInfo = await (await sunoApi).concatenate(clip_id);
       return new NextResponse(JSON.stringify(audioInfo), {
         status: 200,
         headers: {

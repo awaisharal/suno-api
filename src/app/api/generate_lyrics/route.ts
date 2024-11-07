@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
       const { prompt, cookie } = body;
 
       const client = sunoApi(cookie);
-      
+
       const lyrics = await (await client).generateLyrics(prompt);
 
       return new NextResponse(JSON.stringify(lyrics), {

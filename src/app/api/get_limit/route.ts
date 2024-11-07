@@ -9,10 +9,8 @@ export async function GET(req: NextRequest) {
     try {
 
       const url = new URL(req.url);
-      const cookie = url.searchParams.get('cookie');
-
-      const client = sunoApi(cookie || '');
-
+      var cookie = url.searchParams.get('cookie');
+      const client = sunoApi(cookie);
       const limit = await (await client).get_credits();
 
 

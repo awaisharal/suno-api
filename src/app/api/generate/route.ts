@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
       const { prompt, make_instrumental, model, wait_audio, cookie } = body;
 
       const client = sunoApi(cookie);
-
       const audioInfo = await (await client).generate(
         prompt,
         Boolean(make_instrumental),
